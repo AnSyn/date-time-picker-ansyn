@@ -3,15 +3,15 @@
  */
 
 import {
-    AfterContentInit,
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    OnInit,
-    Optional,
-    ViewChild
+  AfterContentInit,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  Optional,
+  ViewChild
 } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { OwlDateTimeIntl } from './date-time-picker-intl.service';
@@ -21,13 +21,8 @@ import { DateTimeAdapter } from './adapter/date-time-adapter.class';
 import { OwlDateTime, PickerType } from './date-time.class';
 import { Observable, Subject } from 'rxjs';
 import { owlDateTimePickerAnimations } from './date-time-picker.animations';
-import {
-    DOWN_ARROW,
-    LEFT_ARROW,
-    RIGHT_ARROW,
-    SPACE,
-    UP_ARROW
-} from '@angular/cdk/keycodes';
+import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import { RangeModesEnum } from './const';
 
 @Component({
     exportAs: 'owlDateTimeContainer',
@@ -59,7 +54,8 @@ export class OwlDateTimeContainerComponent<T>
     timer: OwlTimerComponent<T>;
 
     public picker: OwlDateTime<T>;
-    public activeSelectedIndex = 0; // The current active SelectedIndex in range select mode (0: 'from', 1: 'to')
+    // The current active SelectedIndex in range select mode (0: 'from', 1: 'to')
+    public activeSelectedIndex: RangeModesEnum = RangeModesEnum.RANGE_FROM_DATE_MODE;
 
     /**
      * Stream emits when try to hide picker
@@ -400,22 +396,24 @@ export class OwlDateTimeContainerComponent<T>
 
         if (this.picker.selectMode === 'range') {
           // If 'from' is selected, update 'from' date
-          // (and stay on 'from' to allow editing the time)
+          // and immediately switch to 'to' date mode
           // If 'to' is selected, update 'to' date
-          // (and stay on 'to' to allow editing the time)
+          // and immediately switch to 'from' date mode
           // If the new 'from' date is later than the current 'to' date,
           // or the new 'to' date is earlier than the current 'from' date,
           // then set the new date as both 'from' and 'to' (ram)
-          if (this.activeSelectedIndex === 0) {
+          if (this.activeSelectedIndex === RangeModesEnum.RANGE_FROM_DATE_MODE) {
             from = result;
             if (to && this.dateTimeAdapter.differenceInCalendarDays(to, result) < 0) {
               to = result;
             }
+            this.activeSelectedIndex = RangeModesEnum.RANGE_TO_DATE_MODE;
           } else {
             to = result;
             if (from && this.dateTimeAdapter.differenceInCalendarDays(result, from) < 0) {
               from = result;
             }
+            this.activeSelectedIndex = RangeModesEnum.RANGE_FROM_DATE_MODE;
           }
         } else if (this.picker.selectMode === 'rangeFrom') {
             from = result;
