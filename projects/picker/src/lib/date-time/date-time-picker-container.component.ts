@@ -248,6 +248,8 @@ export class OwlDateTimeContainerComponent<T>
                 this.picker.select(result);
             }
         }
+
+        this.onSetClicked(date);
     }
 
     public timeSelected(time: T, index?: number): void {
@@ -293,6 +295,8 @@ export class OwlDateTimeContainerComponent<T>
 
             this.picker.select(selecteds);
         }
+
+        this.onSetClicked(time);
     }
 
     /**
@@ -315,7 +319,11 @@ export class OwlDateTimeContainerComponent<T>
         }
 
         this.confirmSelected$.next(event);
-        event.preventDefault();
+
+        if (!!event.preventDefault) {
+            event.preventDefault();
+        }
+        
         return;
     }
 
