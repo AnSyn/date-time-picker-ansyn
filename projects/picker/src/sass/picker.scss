@@ -6,7 +6,7 @@ $cdk-z-index-overlay: 1000;
 $cdk-z-index-overlay-backdrop: 1000;
 
 // Background color for all of the backdrops
-$cdk-overlay-dark-backdrop-background: rgba(0, 0, 0, 0.288);
+$cdk-overlay-dark-backdrop-background: rgba(255, 255, 255, 0.288);
 
 // Default backdrop animation is based on the Material Design swift-ease-out.
 $backdrop-animation-duration: 400ms !default;
@@ -143,22 +143,25 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
   box-sizing: border-box;
   display: block;
   padding: 1.5em;
-  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
-  0px 24px 38px 3px rgba(0, 0, 0, 0.14),
-  0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 11px 15px -7px rgba(255, 255, 255, 0.2),
+  0px 24px 38px 3px rgba(255, 255, 255, 0.14),
+  0px 9px 46px 8px rgba(255, 255, 255, 0.12);
   border-radius: 2px;
   overflow: auto;
   background: #fff;
-  color: rgba(0, 0, 0, .87);
+  color: rgba(255, 255, 255, .87);
   width: 100%;
   height: 100%;
   outline: none;
 }
 
-$theme-color: #3f51b5;
+$theme-color: #0091ff;
 // ram
 $active-fgcolor: #ffffff;
 $active-bgcolor: #0091ff;
+
+$bgcolor: #0a0d0d;
+$text-color: #ffffff;
 
 .owl-dt-container,
 .owl-dt-container * {
@@ -168,13 +171,13 @@ $active-bgcolor: #0091ff;
 .owl-dt-container {
   display: block;
   font-size: 1rem;
-  background: #ffffff;
+  background: $bgcolor;
   pointer-events: auto;
   z-index: 1000;
 }
 
 .owl-dt-container-row {
-  border-bottom: 1px solid rgba(0, 0, 0, .12);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
 
   &:last-child {
     border-bottom: none;
@@ -193,7 +196,7 @@ $active-bgcolor: #0091ff;
   font-size: 1em;
   width: 100%;
   padding: .5em;
-  color: #000000;
+  color: $text-color;
 
   .owl-dt-calendar-control-content {
     flex: 1 1 auto;
@@ -201,11 +204,11 @@ $active-bgcolor: #0091ff;
     justify-content: center;
     align-items: center;
 
-    .owl-dt-calendar-control-button {
+    .owl-dt-control-button-content {
       padding: 0 .8em;
 
       &:hover {
-        background-color: rgba(0, 0, 0, .12);;
+        background-color: rgba(255, 255, 255, .4);
       }
     }
   }
@@ -243,7 +246,7 @@ $active-bgcolor: #0091ff;
   border-spacing: 0;
 
   .owl-dt-calendar-header {
-    color: rgba(0, 0, 0, .4);
+    color: $text-color;
 
     .owl-dt-weekdays {
       th {
@@ -266,7 +269,7 @@ $active-bgcolor: #0091ff;
         left: -.5em;
         right: -.5em;
         height: 1px;
-        background: rgba(0, 0, 0, .12);
+        background: rgba(255, 255, 255, .12);
       }
     }
   }
@@ -277,9 +280,9 @@ $active-bgcolor: #0091ff;
     line-height: 0;
     text-align: center;
     outline: 0;
-    color: rgba(0, 0, 0, .85);
+    color: $text-color;
     -webkit-appearance: none;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -306,7 +309,7 @@ $active-bgcolor: #0091ff;
   }
 
   .owl-dt-calendar-cell-today:not(.owl-dt-calendar-cell-selected) {
-    border-color: rgba(0, 0, 0, .4);
+    border-color: $text-color;
   }
 
   .owl-dt-calendar-cell-selected {
@@ -322,7 +325,7 @@ $active-bgcolor: #0091ff;
     cursor: default;
 
     & > .owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected) {
-      color: rgba(0, 0, 0, .4);
+      color: rgba(255, 255, 255, .4);
     }
 
     & > .owl-dt-calendar-cell-content.owl-dt-calendar-cell-selected {
@@ -330,13 +333,13 @@ $active-bgcolor: #0091ff;
     }
 
     & > .owl-dt-calendar-cell-today:not(.owl-dt-calendar-cell-selected) {
-      border-color: rgba(0, 0, 0, .2);
+      border-color: rgba(255, 255, 255, .2);
     }
   }
 
   .owl-dt-calendar-cell-active:focus > .owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected),
   :not(.owl-dt-calendar-cell-disabled):hover > .owl-dt-calendar-cell-content:not(.owl-dt-calendar-cell-selected) {
-    background-color: rgba(0, 0, 0, .04);
+    background-color: rgba(255, 255, 255, .4);
   }
 
   .owl-dt-calendar-cell-in-range {
@@ -358,7 +361,6 @@ $active-bgcolor: #0091ff;
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 7em;
   padding: .5em;
   outline: none;
 }
@@ -368,8 +370,8 @@ $active-bgcolor: #0091ff;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;
-  height: 100%;
+  width: 100%;
+  height: min-content;
 }
 
 .owl-dt-timer-content {
@@ -384,11 +386,10 @@ $active-bgcolor: #0091ff;
     display: block;
     width: 2em;
     text-align: center;
-    border: 1px solid rgba(0, 0, 0, .5);
-    border-radius: 3px;
-    outline: medium none;
+    color: inherit;
+    background-color: inherit;
+    border: none;
     font-size: 1.2em;
-    padding: .2em;
   }
 }
 
@@ -397,7 +398,8 @@ $active-bgcolor: #0091ff;
   align-self: flex-end;
   position: absolute;
   width: .6em;
-  height: 100%;
+  height: 3em;
+  top: -25%;
   left: -.3em;
 
   &:before,
@@ -439,6 +441,7 @@ $active-bgcolor: #0091ff;
   color: inherit;
 
   .owl-dt-control-button-content {
+    color: $text-color;
     position: relative;
     display: inline-flex;
     justify-content: center;
@@ -456,11 +459,12 @@ $active-bgcolor: #0091ff;
   }
 
   &:hover > .owl-dt-control-button-content {
-    background-color: rgba(0, 0, 0, .12);
+    background-color: rgba(255, 255, 255, .2);
   }
 
   .owl-dt-control-button-arrow {
     display: flex;
+    fill: $text-color;
     justify-content: center;
     align-items: center;
     width: 1em;
@@ -479,7 +483,7 @@ $active-bgcolor: #0091ff;
   }
 
   &[disabled] {
-    color: rgba(0, 0, 0, .4);
+    color: rgba(255, 255, 255, .4);
     cursor: default;
   }
 
@@ -494,9 +498,9 @@ $active-bgcolor: #0091ff;
 .owl-dt-popup-container {
   position: relative;
   width: 18.5em;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2),
-  0 8px 10px 1px rgba(0, 0, 0, .14),
-  0 3px 14px 2px rgba(0, 0, 0, .12);
+  box-shadow: 0 5px 5px -3px rgba(255, 255, 255, .2),
+  0 8px 10px 1px rgba(255, 255, 255, .14),
+  0 3px 14px 2px rgba(255, 255, 255, .12);
 
   .owl-dt-calendar,
   .owl-dt-timer {
@@ -572,34 +576,39 @@ $active-bgcolor: #0091ff;
 
   &:hover {
     .owl-dt-control-button-content {
-      background-color: rgba(0, 0, 0, .1);
+      background-color: rgba(255, 255, 255, .4);
     }
   }
 }
 
 .owl-dt-container-info {
-  padding: 0 .5em;
-  cursor: pointer;
+  color: $text-color;
+  padding: .5em;
   -webkit-tap-highlight-color: transparent;
+  display: flex;
+  justify-content: space-evenly;
 
   .owl-dt-container-range {
     outline: none;
+    width: 30%;
+    cursor: pointer;
 
     .owl-dt-container-range-content {
+      border: solid;
+      border-radius: 5px;
       display: flex;
       justify-content: space-between;
-      padding: .5em .5em; // ram
-      font-size: .8em;
-    }
+      font-size: .6em;
 
-    &:last-child {
-      border-top: 1px solid rgba(0, 0, 0, 0.12);
+      &:hover {
+        background-color: rgba(255, 255, 255, .4);
+      }
     }
   }
 
   .owl-dt-container-info-active {
-    color: $active-fgcolor; // ram
-    background-color: $active-bgcolor;
+    // color: $active-fgcolor; // ram
+    background-color: rgba($theme-color, .2);
   }
 }
 
@@ -657,7 +666,7 @@ $active-bgcolor: #0091ff;
   }
 
   &:focus > .owl-dt-control-content {
-    background-color: rgba(0, 0, 0, .12);
+    background-color: rgba(255, 255, 255, .4);
   }
 
   &:not(:-moz-focusring):focus > .owl-dt-control-content {

@@ -220,6 +220,10 @@ export class OwlDateTimeContainerComponent<T>
         }
     }
 
+    public getPickerMomentByIndex(index: number): any {
+        return this.picker.selecteds[index] || this.pickerMoment;
+    }
+
     public dateSelected(date: T): void {
         let result;
 
@@ -246,7 +250,11 @@ export class OwlDateTimeContainerComponent<T>
         }
     }
 
-    public timeSelected(time: T): void {
+    public timeSelected(time: T, index?: number): void {
+        if (this.activeSelectedIndex !== index) {
+            return;
+        }
+
         this.pickerMoment = this.dateTimeAdapter.clone(time);
 
         if (!this.picker.dateTimeChecker(this.pickerMoment)) {

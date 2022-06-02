@@ -2,50 +2,9 @@
      [@fadeInPicker]="picker.pickerMode === 'inline'? '' : 'enter'"
      class="owl-dt-container-inner">
 
-    <owl-date-time-calendar
-            *ngIf="pickerType === 'both' || pickerType === 'calendar'"
-            class="owl-dt-container-row"
-            [firstDayOfWeek]="picker.firstDayOfWeek"
-            [(pickerMoment)]="pickerMoment"
-            [selected]="picker.selected"
-            [selecteds]="picker.selecteds"
-            [selectMode]="picker.selectMode"
-            [minDate]="picker.minDateTime"
-            [maxDate]="picker.maxDateTime"
-            [dateFilter]="picker.dateTimeFilter"
-            [startView]="picker.startView"
-            [hideOtherMonths]="picker.hideOtherMonths"
-            (yearSelected)="picker.selectYear($event)"
-            (monthSelected)="picker.selectMonth($event)"
-            (selectedChange)="dateSelected($event)"></owl-date-time-calendar>
-
-    <owl-date-time-timer
-            *ngIf="pickerType === 'both' || pickerType === 'timer'"
-            class="owl-dt-container-row"
-            [pickerMoment]="pickerMoment"
-            [minDateTime]="picker.minDateTime"
-            [maxDateTime]="picker.maxDateTime"
-            [showSecondsTimer]="picker.showSecondsTimer"
-            [hour12Timer]="picker.hour12Timer"
-            [stepHour]="picker.stepHour"
-            [stepMinute]="picker.stepMinute"
-            [stepSecond]="picker.stepSecond"
-            (selectedChange)="timeSelected($event)"></owl-date-time-timer>
-
     <div *ngIf="picker.isInRangeMode"
          role="radiogroup"
          class="owl-dt-container-info owl-dt-container-row">
-        <div role="radio" [tabindex]="activeSelectedIndex === 0 ? 0 : -1"
-             [attr.aria-checked]="activeSelectedIndex === 0"
-             class="owl-dt-control owl-dt-container-range owl-dt-container-from"
-             [ngClass]="{'owl-dt-container-info-active': activeSelectedIndex === 0}"
-             (click)="handleClickOnInfoGroup($event, 0)"
-             (keydown)="handleKeydownOnInfoGroup($event, to, 0)" #from>
-            <span class="owl-dt-control-content owl-dt-container-range-content" tabindex="-1">
-                <span class="owl-dt-container-info-label">{{fromLabel}}:</span>
-                <span class="owl-dt-container-info-value">{{fromFormattedValue}}</span>
-            </span>
-        </div>
         <div role="radio" [tabindex]="activeSelectedIndex === 1 ? 0 : -1"
              [attr.aria-checked]="activeSelectedIndex === 1"
              class="owl-dt-control owl-dt-container-range owl-dt-container-to"
@@ -53,13 +12,73 @@
              (click)="handleClickOnInfoGroup($event, 1)"
              (keydown)="handleKeydownOnInfoGroup($event, from, 1)" #to>
             <span class="owl-dt-control-content owl-dt-container-range-content" tabindex="-1">
-                <span class="owl-dt-container-info-label">{{toLabel}}:</span>
-                <span class="owl-dt-container-info-value">{{toFormattedValue}}</span>
+                <owl-date-time-timer
+                    *ngIf="pickerType === 'both' || pickerType === 'timer'"
+                    class="owl-dt-container-row"
+                    [pickerMoment]="getPickerMomentByIndex(1)"
+                    [minDateTime]="picker.minDateTime"
+                    [maxDateTime]="picker.maxDateTime"
+                    [showSecondsTimer]="picker.showSecondsTimer"
+                    [hour12Timer]="picker.hour12Timer"
+                    [stepHour]="picker.stepHour"
+                    [stepMinute]="picker.stepMinute"
+                    [stepSecond]="picker.stepSecond"
+                    (selectedChange)="timeSelected($event, 1)"></owl-date-time-timer>
             </span>
         </div>
+
+        <div style="display: flex; justify-content: center; align-items: center; cursor: default;">
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 400.004 400.004" style="enable-background:new 0 0 400.004 400.004;" xml:space="preserve">
+                <g>
+                    <path fill="white" d="M382.688,182.686H59.116l77.209-77.214c6.764-6.76,6.764-17.726,0-24.485c-6.764-6.764-17.73-6.764-24.484,0L5.073,187.757
+                        c-6.764,6.76-6.764,17.727,0,24.485l106.768,106.775c3.381,3.383,7.812,5.072,12.242,5.072c4.43,0,8.861-1.689,12.242-5.072
+                        c6.764-6.76,6.764-17.726,0-24.484l-77.209-77.218h323.572c9.562,0,17.316-7.753,17.316-17.315
+                        C400.004,190.438,392.251,182.686,382.688,182.686z"></path>
+                </g>
+            </svg>
+        </div>
+
+        <div role="radio" [tabindex]="activeSelectedIndex === 0 ? 0 : -1"
+        [attr.aria-checked]="activeSelectedIndex === 0"
+        class="owl-dt-control owl-dt-container-range owl-dt-container-from"
+        [ngClass]="{'owl-dt-container-info-active': activeSelectedIndex === 0}"
+        (click)="handleClickOnInfoGroup($event, 0)"
+        (keydown)="handleKeydownOnInfoGroup($event, to, 0)" #from>
+       <span class="owl-dt-control-content owl-dt-container-range-content" tabindex="-1">
+           <owl-date-time-timer
+               *ngIf="pickerType === 'both' || pickerType === 'timer'"
+               class="owl-dt-container-row"
+               [pickerMoment]="getPickerMomentByIndex(0)"
+               [minDateTime]="picker.minDateTime"
+               [maxDateTime]="picker.maxDateTime"
+               [showSecondsTimer]="picker.showSecondsTimer"
+               [hour12Timer]="picker.hour12Timer"
+               [stepHour]="picker.stepHour"
+               [stepMinute]="picker.stepMinute"
+               [stepSecond]="picker.stepSecond"
+               (selectedChange)="timeSelected($event, 0)"></owl-date-time-timer>
+       </span>
+   </div>
     </div>
 
-    <div *ngIf="showControlButtons" class="owl-dt-container-buttons owl-dt-container-row">
+    <owl-date-time-calendar
+        *ngIf="pickerType === 'both' || pickerType === 'calendar'"
+        class="owl-dt-container-row"
+        [firstDayOfWeek]="picker.firstDayOfWeek"
+        [(pickerMoment)]="pickerMoment"
+        [selected]="picker.selected"
+        [selecteds]="picker.selecteds"
+        [selectMode]="picker.selectMode"
+        [minDate]="picker.minDateTime"
+        [maxDate]="picker.maxDateTime"
+        [dateFilter]="picker.dateTimeFilter"
+        [startView]="picker.startView"
+        [hideOtherMonths]="picker.hideOtherMonths"
+        (yearSelected)="picker.selectYear($event)"
+        (monthSelected)="picker.selectMonth($event)"
+        (selectedChange)="dateSelected($event)"></owl-date-time-calendar>
+
+    <!-- <div class="owl-dt-container-buttons owl-dt-container-row">
         <button class="owl-dt-control owl-dt-control-button owl-dt-container-control-button"
                 type="button" tabindex="0"
                 (click)="onCancelClicked($event)">
@@ -74,5 +93,5 @@
                 {{setLabel}}
             </span>
         </button>
-    </div>
+    </div> -->
 </div>
